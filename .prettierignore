@@ -1,0 +1,10 @@
+node_modules/
+.expo/
+web-build/
+dist/
+*.lock
+package-lock.json
+yarn.lock
+*.log
+.DS_Store
+
