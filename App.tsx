@@ -4,7 +4,20 @@ import { useEffect, useState } from 'react';
 import { testSupabaseConnection } from './src/services/testConnection';
 import { supabase } from './src/services/supabase';
 
+// #region agent log
+// Log immediately when module loads
+if (typeof window !== 'undefined') {
+  console.log('[DEBUG] App.tsx module loaded', {timestamp: Date.now()});
+  fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:6',message:'App.tsx module loaded in browser',data:{userAgent:typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+}
+// #endregion
+
 export default function App() {
+  // #region agent log
+  console.log('[DEBUG] App.tsx: App component rendering');
+  fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:7',message:'App component rendering',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  // #endregion
+  
   const [connectionStatus, setConnectionStatus] = useState<
     'testing' | 'success' | 'error'
   >('testing');
@@ -12,10 +25,20 @@ export default function App() {
   const [tableInfo, setTableInfo] = useState<string>('');
 
   useEffect(() => {
+    // #region agent log
+    console.log('[DEBUG] App.tsx: useEffect started');
+    fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:15',message:'useEffect started',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
     async function testConnection() {
+      // #region agent log
+      fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:17',message:'testConnection function called',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+      // #endregion
       try {
         // Test basic connection
         const isConnected = await testSupabaseConnection();
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:20',message:'testSupabaseConnection result',data:{isConnected},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
         
         if (isConnected) {
           setConnectionStatus('success');
@@ -46,6 +69,9 @@ export default function App() {
           setErrorMessage('Failed to connect to Supabase');
         }
       } catch (error) {
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:49',message:'Error caught in testConnection',data:{errorMessage:error instanceof Error ? error.message : 'Unknown error',errorStack:error instanceof Error ? error.stack : String(error)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+        // #endregion
         setConnectionStatus('error');
         setErrorMessage(
           error instanceof Error ? error.message : 'Unknown error occurred'
@@ -57,6 +83,10 @@ export default function App() {
     testConnection();
   }, []);
 
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/68e85477-9b30-4be5-bfea-b298b8a0a150',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:60',message:'App component returning JSX',data:{connectionStatus},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  // #endregion
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>FAMLY APP</Text>
