@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Text, StyleSheet, ViewStyle } from 'react-native';
 
 interface LogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge';
@@ -24,7 +24,7 @@ export default function Logo({ size = 'large', color = '#000', style }: LogoProp
         style,
       ]}
     >
-      FAMILY
+      FAMLY
     </Text>
   );
 }
@@ -32,8 +32,7 @@ export default function Logo({ size = 'large', color = '#000', style }: LogoProp
 const styles = StyleSheet.create({
   logo: {
     fontWeight: '900',
-    fontFamily: 'System',
+    fontFamily: 'PlayExtraUnlicensed-VAR',
     textAlign: 'center',
   },
 });
-
