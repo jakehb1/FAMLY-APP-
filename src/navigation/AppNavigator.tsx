@@ -14,6 +14,7 @@ import SendConnectionScreen from '../screens/SendConnectionScreen';
 import ChatListScreen from '../screens/ChatListScreen';
 import ChatScreen from '../screens/ChatScreen';
 import EditChildScreen from '../screens/EditChildScreen';
+import Logo from '../components/Logo';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 const Stack = createNativeStackNavigator();
@@ -41,10 +42,7 @@ export default function AppNavigator() {
           headerTitleStyle: {
             fontWeight: '600',
           },
-          headerTitle: () => {
-            const Logo = require('../components/Logo').default;
-            return <Logo size="small" />;
-          },
+          headerTitle: () => <Logo size="small" />,
         }}
       >
         {session ? (
