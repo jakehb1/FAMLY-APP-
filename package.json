@@ -8,6 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:web": "expo export --platform web && node scripts/fix-html-module.js",
+    "build": "expo export --platform web && node scripts/post-build-fix.js",
+    "vercel-build": "node scripts/post-build-fix.js",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
