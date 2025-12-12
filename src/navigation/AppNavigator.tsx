@@ -41,6 +41,10 @@ export default function AppNavigator() {
           headerTitleStyle: {
             fontWeight: '600',
           },
+          headerTitle: () => {
+            const Logo = require('../components/Logo').default;
+            return <Logo size="small" />;
+          },
         }}
       >
         {session ? (
