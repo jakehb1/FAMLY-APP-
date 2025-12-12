@@ -6,21 +6,49 @@
 const fs = require('fs');
 const path = require('path');
 
-const distPath = path.join(__dirname, '..', 'dist', 'index.html');
+// Try multiple possible paths for dist directory
+const possiblePaths = [
+  path.join(__dirname, '..', 'dist', 'index.html'),
+  path.join(process.cwd(), 'dist', 'index.html'),
+  './dist/index.html',
+];
+
+let distPath = null;
+for (const testPath of possiblePaths) {
+  const resolvedPath = path.resolve(testPath);
+  if (fs.existsSync(resolvedPath)) {
+    distPath = resolvedPath;
+    break;
+  }
+}
 
 // #region agent log
-const logData = {location:'fix-html-module.js:9',message:'fix-html-module script started',data:{distPath,exists:fs.existsSync(distPath)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-fs.appendFileSync('/Users/jakehbradley/FAMLY APP /.cursor/debug.log', JSON.stringify(logData) + '\n');
+console.log('[DEBUG fix-html-module] Script started');
+console.log('[DEBUG fix-html-module] Current working directory:', process.cwd());
+console.log('[DEBUG fix-html-module] __dirname:', __dirname);
+console.log('[DEBUG fix-html-module] Testing paths:', possiblePaths);
+const logData = {location:'fix-html-module.js:20',message:'fix-html-module script started',data:{cwd:process.cwd(),__dirname,possiblePaths,distPath,exists:distPath ? fs.existsSync(distPath) : false},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
+try {
+  fs.appendFileSync('/Users/jakehbradley/FAMLY APP /.cursor/debug.log', JSON.stringify(logData) + '\n');
+} catch (e) {
+  // Ignore log file errors in production
+}
 // #endregion
 
-if (!fs.existsSync(distPath)) {
+if (!distPath) {
   // #region agent log
-  const errorLog = {location:'fix-html-module.js:12',message:'dist/index.html not found',data:{distPath},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
-  fs.appendFileSync('/Users/jakehbradley/FAMLY APP /.cursor/debug.log', JSON.stringify(errorLog) + '\n');
+  console.error('[DEBUG fix-html-module] dist/index.html not found in any path');
+  const errorLog = {location:'fix-html-module.js:30',message:'dist/index.html not found',data:{possiblePaths,checked:possiblePaths.map(p => ({path:p,exists:fs.existsSync(path.resolve(p))}))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'};
+  try {
+    fs.appendFileSync('/Users/jakehbradley/FAMLY APP /.cursor/debug.log', JSON.stringify(errorLog) + '\n');
+  } catch (e) {}
   // #endregion
-  console.error('dist/index.html not found');
+  console.error('[ERROR] dist/index.html not found in any of these paths:', possiblePaths);
+  console.error('[ERROR] Current directory contents:', fs.readdirSync(process.cwd()));
   process.exit(1);
 }
+
+console.log('[DEBUG fix-html-module] Found index.html at:', distPath);
 
 let html = fs.readFileSync(distPath, 'utf8');
 // #region agent log
