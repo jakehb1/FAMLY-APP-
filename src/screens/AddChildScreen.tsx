@@ -117,16 +117,23 @@ export default function AddChildScreen({ navigation, route }: AddChildScreenProp
 
         <Text style={styles.label}>School Age Group</Text>
         <View style={styles.pickerContainer}>
-          <Text style={styles.pickerText}>
-            {schoolAgeGroup ? schoolAgeGroups.find((g) => g.value === schoolAgeGroup)?.label : 'Select age group'}
-          </Text>
           {schoolAgeGroups.map((group) => (
             <TouchableOpacity
               key={group.value || 'none'}
-              style={styles.pickerOption}
+              style={[
+                styles.pickerOption,
+                schoolAgeGroup === group.value && styles.pickerOptionSelected,
+              ]}
               onPress={() => setSchoolAgeGroup(group.value)}
             >
-              <Text style={styles.pickerOptionText}>{group.label}</Text>
+              <Text
+                style={[
+                  styles.pickerOptionText,
+                  schoolAgeGroup === group.value && styles.pickerOptionTextSelected,
+                ]}
+              >
+                {group.label}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
