@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx expo export --platform web",
+  "buildCommand": "npx expo export --platform web && node scripts/fix-html-module.js",
   "outputDirectory": "dist",
   "devCommand": "npm run web",
   "installCommand": "npm install",
