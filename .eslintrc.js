@@ -15,3 +15,4 @@ module.exports = {
   ignorePatterns: ['node_modules/', '.expo/', 'web-build/', 'dist/'],
 };
 
+

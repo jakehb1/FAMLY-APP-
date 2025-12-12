@@ -25,12 +25,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "apiUrl": process.env.EXPO_PUBLIC_API_URL || "",
-      "supabaseUrl": process.env.EXPO_PUBLIC_SUPABASE_URL || "",
-      "supabaseAnonKey": process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || "",
-      "appEnv": process.env.EXPO_PUBLIC_APP_ENV || "development"
     }
   }
 }
