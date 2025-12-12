@@ -1,20 +1,55 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }: any) {
   const { user, signOut } = useAuth();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to FAMLY!</Text>
-      <Text style={styles.subtitle}>You're signed in as:</Text>
-      <Text style={styles.email}>{user?.email}</Text>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Welcome to FAMLY!</Text>
+        <Text style={styles.subtitle}>You're signed in as: {user?.email}</Text>
+      </View>
 
-      <TouchableOpacity style={styles.button} onPress={signOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
+      <View style={styles.menu}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('Profile')}
+        >
+          <Text style={styles.menuItemTitle}>👨‍👩‍👧‍👦 My Profile</Text>
+          <Text style={styles.menuItemSubtitle}>View and edit your family profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('Discover')}
+        >
+          <Text style={styles.menuItemTitle}>🔍 Discover Families</Text>
+          <Text style={styles.menuItemSubtitle}>Find and connect with other families</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('Connections')}
+        >
+          <Text style={styles.menuItemTitle}>🤝 Connections</Text>
+          <Text style={styles.menuItemSubtitle}>Manage your family connections</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('ChatList')}
+        >
+          <Text style={styles.menuItemTitle}>💬 Messages</Text>
+          <Text style={styles.menuItemSubtitle}>Chat with connected families</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.signOutButton} onPress={signOut}>
+        <Text style={styles.signOutButtonText}>Sign Out</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
