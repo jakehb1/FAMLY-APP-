@@ -11,6 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
+import Logo from '../components/Logo';
 
 interface LoginScreenProps {
   navigation: any;
@@ -48,8 +49,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <View style={styles.content}>
+        <View style={styles.logoContainer}>
+          <Logo size="large" />
+        </View>
         <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Sign in to your FAMLY account</Text>
+        <Text style={styles.subtitle}>Sign in to your account</Text>
 
         <View style={styles.form}>
           <Text style={styles.label}>Email</Text>
@@ -110,8 +114,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 24,
   },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
   title: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 8,

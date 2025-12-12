@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
+import Logo from '../components/Logo';
 
 export default function HomeScreen({ navigation }: any) {
   const { user, signOut } = useAuth();
@@ -8,7 +9,8 @@ export default function HomeScreen({ navigation }: any) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Text style={styles.title}>Welcome to FAMLY!</Text>
+        <Logo size="large" />
+        <Text style={styles.welcomeText}>Welcome!</Text>
         <Text style={styles.subtitle}>You're signed in as: {user?.email}</Text>
       </View>
 
@@ -57,34 +59,59 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  content: {
+    paddingBottom: 32,
+  },
+  header: {
     padding: 24,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#000',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
     marginBottom: 16,
+    alignItems: 'center',
   },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
+  welcomeText: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#000',
+    marginTop: 16,
     marginBottom: 8,
   },
-  email: {
-    fontSize: 18,
-    color: '#007AFF',
-    marginBottom: 32,
-    fontWeight: '600',
+  subtitle: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
   },
-  button: {
+  menu: {
+    padding: 16,
+  },
+  menuItem: {
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    marginBottom: 12,
+    backgroundColor: '#fff',
+  },
+  menuItemTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#000',
+    marginBottom: 4,
+  },
+  menuItemSubtitle: {
+    fontSize: 14,
+    color: '#666',
+  },
+  signOutButton: {
     backgroundColor: '#FF3B30',
     borderRadius: 8,
     padding: 16,
-    paddingHorizontal: 32,
+    marginHorizontal: 24,
+    marginTop: 16,
+    alignItems: 'center',
   },
-  buttonText: {
+  signOutButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
